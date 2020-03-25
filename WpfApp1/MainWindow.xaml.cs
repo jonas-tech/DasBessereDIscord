@@ -25,7 +25,7 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = new ViewModelMessageing();
+            
         }
 
 

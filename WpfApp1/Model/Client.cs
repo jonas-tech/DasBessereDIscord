@@ -7,7 +7,7 @@ using DasBessereDIscord.Client.ViewModel;
 
 namespace DasBessereDIscord.Client.Model
 {
-    public class Messaging : IClient
+    public class Client : IClient
     {
         string userName;
         string userMessage;
@@ -17,6 +17,7 @@ namespace DasBessereDIscord.Client.Model
         public void SetUserName(string userName)
         {
             this.userName = userName;
+
         }
 
         public void SetMessage(string userMessage)
@@ -28,6 +29,7 @@ namespace DasBessereDIscord.Client.Model
         public void CreatFullMessage()
         {
             this.fullMesssage = DateTime.Now.ToString() + " von " + userName + " : " + userMessage;
+
         }
 
 
