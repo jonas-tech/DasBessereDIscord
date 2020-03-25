@@ -12,7 +12,7 @@ public interface IService
 {
 
 	[OperationContract]
-	string GetData(int value);
+	void ReturnMessage(string clientMessage);
 
 	[OperationContract]
 	CompositeType GetDataUsingDataContract(CompositeType composite);

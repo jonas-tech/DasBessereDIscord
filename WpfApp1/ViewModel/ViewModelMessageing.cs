@@ -11,7 +11,7 @@ namespace DasBessereDIscord.Client.ViewModel
     public class ViewModelMessageing
     {
         MainWindow window;
-        Messaging messaging = new Messaging();
+        Model.Client messaging = new Model.Client();
         string Message;
 
         public void SetuserName(string userName)
