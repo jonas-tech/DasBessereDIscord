@@ -7,6 +7,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+
+        <Grid Name="LogINScreen">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Button Content="Log IN" Grid.Column="1" Grid.Row="1" Name="LogInButton" Click="LogInButton_Click" />
+            <TextBox Text="UserName" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Name="UserNameTextBox"/>
+        </Grid>
+
+        <Grid Name="Chatroom" Margin="50" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Send Message" Name="SendMessageButton" Grid.Column="1" Grid.Row="1" Click="SendMessageButton_Click"/>
+            <TextBox Text="Message" Name="SendMessageTextBox" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <TextBlock Name="ChatroomTextBlock" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </Grid>
     </Grid>
 </Window>

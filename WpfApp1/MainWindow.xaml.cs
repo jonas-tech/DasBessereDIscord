@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DasBessereDIscord.Client.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,32 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModelMessageing viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new ViewModelMessageing();
+        }
+
+
+        public void PrintMessage(string Message)
+        {
+            ChatroomTextBlock.Text += "\n" + Message;
+        }
+
+        private void SendMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            string userMessage;
+            //string message;
+            userMessage = SendMessageTextBox.Text;
+            SendMessageTextBox.Text = "";
+        }
+
+        private void LogInButton_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.SetuserName(UserNameTextBox.Text);
+            LogINScreen.Visibility = Visibility.Hidden;
+            Chatroom.Visibility = Visibility.Visible;
         }
     }
 }
