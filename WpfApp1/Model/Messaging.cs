@@ -61,6 +61,6 @@ namespace WpfApp1.Model
             server.ClientLogOutOfServer(false);
             this.userName = null;
         }
-        #endregion LogOut
+        #endregion LogOutCo
     }
 }
