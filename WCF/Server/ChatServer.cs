@@ -11,8 +11,8 @@ namespace DasBessereDIscord.Server
 {
     class ChatServer : IServer
     {
-        private byte[] chatBuffer = new byte[1024];
- 
+        private byte[] chatBuffer = new byte[3600];
+
         private List<Socket> clientSockets = new List<Socket>();
 
         Socket chatSocket;
@@ -44,17 +44,26 @@ namespace DasBessereDIscord.Server
 
         public void ServerSendMessageToClient(string clientMessage)
         {
-
+          
         }
 
-        public void ServerGetMessageFromClient(string clientMessage)
+        public void ServerGetMessageFromClient(IAsyncResult asyncResult)
         {
+            Socket chatSocketfromGetcallBackfromAsyncresult = (Socket)asyncResult.AsyncState;
 
+            int clientMessagefromAsyncresult = chatSocketfromGetcallBackfromAsyncresult.EndReceive(asyncResult);
+
+            byte[] messageBuffer = new byte[clientMessage];
+
+            Array.Copy(chatBuffer, messageBuffer, clientMessage);
+
+            string clientMessage = Encoding.ASCII.GetString(messageBuffer);
+
+            IsClientMessageNull(clientMessage, chatSocketfromGetcallBackfromAsyncresult);
         }
 
         public void ClientLogOutOfServer(bool ClientisLoggedin)
         {
-
         }
 
         private void ChatAcceptCallBack(IAsyncResult asyncResult)
@@ -63,14 +72,31 @@ namespace DasBessereDIscord.Server
 
             clientSockets.Add(chatSocketfromAcceptcallBackfromAsyncresult);
 
-            chatSocket.BeginReceive(chatBuffer, 0, chatBuffer.Length, SocketFlags.None, new AsyncCallback(ChatGetCallBack) ,chatSocketfromAcceptcallBackfromAsyncresult);
+            chatSocket.BeginReceive(chatBuffer, 0, chatBuffer.Length, SocketFlags.None, new AsyncCallback(ServerGetMessageFromClient), chatSocketfromAcceptcallBackfromAsyncresult);
 
             chatSocketfromAcceptcallBackfromAsyncresult.BeginAccept(new AsyncCallback(ChatAcceptCallBack), null);
         }
 
-        private void ChatGetCallBack(IAsyncResult asyncResult)
+        private void IsClientMessageNull(string clientMessage, Socket chatSocketfromGetcallBack)
         {
-            Socket chatSocketfromGetcallBackfromAsyncresult = (Socket)asyncResult.AsyncState;
+            if (clientMessage == null)
+            {
+                return;
+            }
+            else
+            {
+                byte[] clientMessagelength = Encoding.ASCII.GetBytes(clientMessage);
+
+                ServerSendMessageToClient(clientMessage);
+
+                chatSocketfromGetcallBack.BeginSend(clientMessage, 0, clientMessagelength.Length, SocketFlags.None, new AsyncCallback(SendMessageCallBack), chatSocketfromGetcallBack);
+            }
+        }
+        private void SendMessageCallBack(IAsyncResult asyncResult)
+        {
+            Socket sendClientmessageSocket = (Socket).asyncResult.AsyncState;
+
+            sendClientmessageSocket.EndSend(asyncResult);
         }
     }
 }
