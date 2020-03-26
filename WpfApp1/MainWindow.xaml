@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
-        <Grid Name="LogINScreen">
+        <Grid Name="LogINScreen" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -30,12 +30,14 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="9*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Button Content="Send Message" Name="SendMessageButton" Grid.Column="1" Grid.Row="1" Click="SendMessageButton_Click"/>
-            <TextBox Text="Message" Name="SendMessageTextBox" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Button Content="Log Off" Name="LogOffButton" Grid.Column="1" Height="29" VerticalAlignment="Top" Click="LogOffButton_Click"/>
+            <Button Content="Send Message" Name="SendMessageButton" Grid.Column="1" Grid.Row="2" Click="SendMessageButton_Click"/>
+            <TextBox Text="Message" Name="SendMessageTextBox" Grid.RowSpan="2"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             <TextBlock Name="ChatroomTextBlock" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Grid>
     </Grid>

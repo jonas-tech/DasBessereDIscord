@@ -4,47 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DasBessereDIscord.Client.ViewModel;
+using WpfApp1.Proxy;
+using WpfApp1.Model;
 
 namespace DasBessereDIscord.Client.Model
 {
     public class Client : IClient
     {
-        string userName;
-        string userMessage;
-        string fullMesssage;
-        ViewModelMessageing viewModelMessageing;
-
-        public void SetUserName(string userName)
-        {
-            this.userName = userName;
-
-        }
-
-        public void SetMessage(string userMessage)
-        {
-            this.userMessage = userMessage;
-            CreatFullMessage();
-        }
-
-        public void CreatFullMessage()
-        {
-            this.fullMesssage = DateTime.Now.ToString() + " von " + userName + " : " + userMessage;
-
-        }
-
-
+        string fullMessage;
         //Set Messages
+        public void SendMessageInternal(string fullMessage)
+        {
+            this.fullMessage = fullMessage;
+            ClientSendMessageToServer();
+        }
         public string ClientSendMessageToServer()
         {
-            return fullMesssage;
+            return fullMessage;
         }
+
         //Get Messages
-        public void ReceiveMessageFromServer(string serverMessage)
+        public void ReceiveMessageFromServer(string fullMessage)
         {
-            viewModelMessageing.ReceiveMessage(serverMessage);
+            this.fullMessage = fullMessage;
+            ReceiveMessageIntern();
         }
 
-
-
+        public string ReceiveMessageIntern()
+        {
+            return fullMessage;
+        }
     }
 }

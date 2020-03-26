@@ -26,6 +26,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WCF", "WCF\", "{C9021E3D-DC
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "WpfApp1\Client.csproj", "{819BAD07-4A70-4539-9572-5A83D61016F7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C9021E3D-DC74-4E7B-BA34-C488486579D7} = {C9021E3D-DC74-4E7B-BA34-C488486579D7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

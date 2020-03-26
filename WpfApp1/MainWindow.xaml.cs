@@ -24,29 +24,35 @@ namespace WpfApp1
         ViewModelMessageing viewModel;
         public MainWindow()
         {
-            InitializeComponent();
-            
+            this.InitializeComponent();
+            viewModel = new ViewModelMessageing();
+        }
+        private void LogOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogINScreen.Visibility = Visibility.Visible;
+            Chatroom.Visibility = Visibility.Hidden;
+            viewModel.LogOut();
         }
 
-
-        public void PrintMessage(string Message)
+        public void PrintMessage()
         {
-            ChatroomTextBlock.Text += "\n" + Message;
+            ChatroomTextBlock.Text += "\n" + viewModel.ReturnServerMessageInViewModel();
         }
 
         private void SendMessageButton_Click(object sender, RoutedEventArgs e)
         {
             string userMessage;
-            //string message;
             userMessage = SendMessageTextBox.Text;
             SendMessageTextBox.Text = "";
+            viewModel.SendMessage(userMessage);
         }
 
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.SetuserName(UserNameTextBox.Text);
+            viewModel.LogIn(UserNameTextBox.Text);
             LogINScreen.Visibility = Visibility.Hidden;
             Chatroom.Visibility = Visibility.Visible;
         }
+
     }
 }

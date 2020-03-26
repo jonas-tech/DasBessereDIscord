@@ -11,6 +11,6 @@ namespace DasBessereDIscord
         //Set Messages
         string ClientSendMessageToServer();
         //Get Messages
-        void ReceiveMessageFromServer(string serverMessage);
+        void ReceiveMessageFromServer(string fullMessage);
     }
 }
