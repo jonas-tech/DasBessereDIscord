@@ -11,7 +11,9 @@ namespace DasBessereDIscord.Client.Model
 {
     public class Client : IClient
     {
+        public Messaging messaging;
         string fullMessage;
+
         //Set Messages
         public void SendMessageInternal(string fullMessage)
         {
@@ -27,7 +29,7 @@ namespace DasBessereDIscord.Client.Model
         public void ReceiveMessageFromServer(string fullMessage)
         {
             this.fullMessage = fullMessage;
-            ReceiveMessageIntern();
+            messaging.PrintMessageInChatRoom();
         }
 
         public string ReceiveMessageIntern()

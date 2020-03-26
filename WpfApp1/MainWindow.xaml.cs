@@ -21,11 +21,12 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        ViewModelMessageing viewModel;
+        readonly ViewModelMessageing viewModel;
+
         public MainWindow()
         {
             this.InitializeComponent();
-            viewModel = new ViewModelMessageing();
+            viewModel = new ViewModelMessageing{window = this};
         }
         private void LogOffButton_Click(object sender, RoutedEventArgs e)
         {
@@ -33,12 +34,10 @@ namespace WpfApp1
             Chatroom.Visibility = Visibility.Hidden;
             viewModel.LogOut();
         }
-
         public void PrintMessage()
         {
             ChatroomTextBlock.Text += "\n" + viewModel.ReturnServerMessageInViewModel();
         }
-
         private void SendMessageButton_Click(object sender, RoutedEventArgs e)
         {
             string userMessage;
@@ -46,13 +45,11 @@ namespace WpfApp1
             SendMessageTextBox.Text = "";
             viewModel.SendMessage(userMessage);
         }
-
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
             viewModel.LogIn(UserNameTextBox.Text);
             LogINScreen.Visibility = Visibility.Hidden;
             Chatroom.Visibility = Visibility.Visible;
         }
-
     }
 }
