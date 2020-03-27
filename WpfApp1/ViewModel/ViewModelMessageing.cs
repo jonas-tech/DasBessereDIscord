@@ -1,32 +1,56 @@
 ﻿using DasBessereDIscord.Server.Client.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp1;
+using WpfApp1.Model;
+using System.Windows;
 
 namespace DasBessereDIscord.Server.Client.ViewModel
 {
-    public class ViewModelMessageing
+    public class ViewModelMessageing 
     {
-        MainWindow window;
-        Model.Client messaging = new Model.Client();
-        string Message;
-
-        public void SetuserName(string userName)
+        public Messaging messaging;
+        public MainWindow window;
+        public ViewModelMessageing()
         {
-            messaging.SetUserName(userName);
+            messaging = new Messaging { viewModelMessageing = this };
         }
-
+        #region LogIn
+        public void LogIn(string userName)
+        {
+            messaging.LogInAndSaveUserName(userName);
+        }
+        #endregion
+        #region SendeMessage
         public void SendMessage(string userMessage)
         {
-            messaging.SetMessage(userMessage);
+            messaging.GetUserMessage(userMessage);
+        }
+        #endregion
+        #region ReceiveMessage
+        string Message = "";
+        public void PrintServerMessageInChatroom(string Message)
+        {
+            this.Message = messaging.serverMessage;
+            window.PrintMessage();
         }
 
-        public void ReceiveMessage(string Message)
+        public string ReturnServerMessageInViewModel()
         {
-            window.PrintMessage(Message);
+            return Message;
         }
+        #endregion
+        #region LogOut
+        public void LogOut()
+        {
+            messaging.LogOutFromServer();
+        }
+
+        #endregion
     }
 }
