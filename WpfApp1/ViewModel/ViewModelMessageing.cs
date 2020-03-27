@@ -1,4 +1,4 @@
-﻿using DasBessereDIscord.Client.Model;
+﻿using DasBessereDIscord.Server.Client.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfApp1;
 
-namespace DasBessereDIscord.Client.ViewModel
+namespace DasBessereDIscord.Server.Client.ViewModel
 {
     public class ViewModelMessageing
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DasBessereDIscord.Client.ViewModel;
+using DasBessereDIscord.Server.Client.ViewModel;
 
-namespace DasBessereDIscord.Client.Model
+namespace DasBessereDIscord.Server.Client.Model
 {
     public class Client : IClient
     {

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EinBesseresDiscord
+namespace DasBessereDIscord.Server
 {
     interface IServer
     {
         void ClientLogIntoServer(bool ClientisLoggedin);
 
-        void ServerSendMessageToClient(string clientMessage);
+        string ServerSendMessageToClient(string clientMessage);
 
         void ServerGetMessageFromClient(string clientMessage);
 
-        void ClientLogOutOfServer(bool ClientisLoggedin);
+        void ClientLogOutOfServer(bool ClientisLoggedin, int clientNumber);
     }
 }
