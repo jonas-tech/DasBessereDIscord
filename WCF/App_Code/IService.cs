@@ -1,43 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
-// NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService" in both code and config file together.
-[ServiceContract]
-public interface IService
+namespace DasBessereDIscord.Server
 {
-
-	[OperationContract]
-	void ReturnMessage(string clientMessage);
-
-	[OperationContract]
-	CompositeType GetDataUsingDxataContract(CompositeType composite);
-
-	// TODO: Add your service operations here
-}
-
-// Use a data contract as illustrated in the sample below to add composite types to service operations.
-[DataContract]
-public class CompositeType
-{
-	bool boolValue = true;
-	string stringValue = "Hello ";
-
-	[DataMember]
-	public bool BoolValue
+	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService" in both code and config file together.
+	[ServiceContract]
+	public interface IService
 	{
-		get { return boolValue; }
-		set { boolValue = value; }
+
+		[OperationContract]
+		string GetData(int value);
+
+		[OperationContract]
+		CompositeType GetDataUsingDataContract(CompositeType composite);
+
+		// TODO: Add your service operations here
+		[OperationContract]
+		void ClientLogIntoServer(bool ClientisLoggedin);
+
+		[OperationContract]
+		string ServerSendMessageToClient();
+
+		[OperationContract]
+		void ServerGetMessageFromClient(string clientMessage);
+
+		[OperationContract]
+		void ClientLogOutOfServer(bool ClientisLoggedin, int clientNumber);
 	}
 
-	[DataMember]
-	public string StringValue
+	// Use a data contract as illustrated in the sample below to add composite types to service operations.
+	[DataContract]
+	public class CompositeType
 	{
-		get { return stringValue; }
-		set { stringValue = value; }
+		bool boolValue = true;
+		string stringValue = "Hello ";
+
+		[DataMember]
+		public bool BoolValue
+		{
+			get { return boolValue; }
+			set { boolValue = value; }
+		}
+
+		[DataMember]
+		public string StringValue
+		{
+			get { return stringValue; }
+			set { stringValue = value; }
+		}
 	}
+
 }
