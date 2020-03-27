@@ -1,4 +1,4 @@
-﻿using DasBessereDIscord.Client.ViewModel;
+﻿using DasBessereDIscord.Server.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,21 +1,20 @@
-﻿using EinBesseresDiscord;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using DasBessereDIscord.Server;
 
 namespace DasBessereDIscord.Server
 {
     class ChatServer : IServer
     {
-        private byte[] chatBuffer = new byte[3600];
-
         private List<Socket> clientSockets = new List<Socket>();
 
         Socket chatSocket;
+
+        Socket clientSocket;
 
         IPHostEntry chatIPhost;
 
@@ -23,6 +22,7 @@ namespace DasBessereDIscord.Server
 
         IPEndPoint clientIPendPoint;
 
+        int amountOfclients;
 
         public void ClientLogIntoServer(bool ClientisLoggedin)
         {
@@ -32,52 +32,44 @@ namespace DasBessereDIscord.Server
 
                 clientIPadress = chatIPhost.AddressList[0];
 
-                clientIPendPoint = new IPEndPoint(clientIPadress, 4510);
+                clientIPendPoint = new IPEndPoint(clientIPadress, 53225);
 
                 chatSocket.Bind(clientIPendPoint);
 
                 chatSocket.Listen(2);
 
-                chatSocket.BeginAccept(new AsyncCallback(ChatAcceptCallBack), null);
+                clientSocket.Connect(clientIPendPoint);
+
+                clientSockets.Add(clientSocket);
+
+                amountOfclients++;
             }
         }
 
-        public void ServerSendMessageToClient(string clientMessage)
+        public string ServerSendMessageToClient(string clientMessage)
         {
-          
+            return clientMessage;
         }
 
-        public void ServerGetMessageFromClient(IAsyncResult asyncResult)
+        public void ServerGetMessageFromClient(string clientMessage)
         {
-            Socket chatSocketfromGetcallBackfromAsyncresult = (Socket)asyncResult.AsyncState;
+            IsClientMessageNull(clientMessage);
 
-            int clientMessagefromAsyncresult = chatSocketfromGetcallBackfromAsyncresult.EndReceive(asyncResult);
-
-            byte[] messageBuffer = new byte[clientMessage];
-
-            Array.Copy(chatBuffer, messageBuffer, clientMessage);
-
-            string clientMessage = Encoding.ASCII.GetString(messageBuffer);
-
-            IsClientMessageNull(clientMessage, chatSocketfromGetcallBackfromAsyncresult);
         }
 
-        public void ClientLogOutOfServer(bool ClientisLoggedin)
+        public void ClientLogOutOfServer(bool ClientisLoggedin, int clientNumber)
         {
+            if (ClientisLoggedin == false)
+            {
+                clientSockets[clientNumber].Close();
+
+                clientSockets.Remove(clientSockets[clientNumber]);
+
+                amountOfclients--;
+            }
         }
 
-        private void ChatAcceptCallBack(IAsyncResult asyncResult)
-        {
-            Socket chatSocketfromAcceptcallBackfromAsyncresult = chatSocket.EndAccept(asyncResult);
-
-            clientSockets.Add(chatSocketfromAcceptcallBackfromAsyncresult);
-
-            chatSocket.BeginReceive(chatBuffer, 0, chatBuffer.Length, SocketFlags.None, new AsyncCallback(ServerGetMessageFromClient), chatSocketfromAcceptcallBackfromAsyncresult);
-
-            chatSocketfromAcceptcallBackfromAsyncresult.BeginAccept(new AsyncCallback(ChatAcceptCallBack), null);
-        }
-
-        private void IsClientMessageNull(string clientMessage, Socket chatSocketfromGetcallBack)
+        private void IsClientMessageNull(string clientMessage)
         {
             if (clientMessage == null)
             {
@@ -85,18 +77,8 @@ namespace DasBessereDIscord.Server
             }
             else
             {
-                byte[] clientMessagelength = Encoding.ASCII.GetBytes(clientMessage);
-
                 ServerSendMessageToClient(clientMessage);
-
-                chatSocketfromGetcallBack.BeginSend(clientMessage, 0, clientMessagelength.Length, SocketFlags.None, new AsyncCallback(SendMessageCallBack), chatSocketfromGetcallBack);
             }
-        }
-        private void SendMessageCallBack(IAsyncResult asyncResult)
-        {
-            Socket sendClientmessageSocket = (Socket).asyncResult.AsyncState;
-
-            sendClientmessageSocket.EndSend(asyncResult);
         }
     }
 }
