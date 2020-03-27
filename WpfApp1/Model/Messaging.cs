@@ -1,11 +1,11 @@
 ﻿using DasBessereDIscord.Client.Model;
-using DasBessereDIscord.Client.ViewModel;
+using DasBessereDIscord.Server.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfApp1.Proxy;
+//using WpfApp1.Proxy;
 
 namespace WpfApp1.Model
 {
@@ -14,12 +14,13 @@ namespace WpfApp1.Model
         string userName;
         string userMessage;
         string fullMessage;
-        IService server;
+        Server server;
         public Client client;
         public ViewModelMessageing viewModelMessageing;
         public Messaging()
         {
             client = new Client() { messaging = this };
+            server = new Server() { messaging = this };
         }
         #region LogIn
         public void LogInAndSaveUserName(string userName)
@@ -44,11 +45,16 @@ namespace WpfApp1.Model
         public void SendFullMessageToInterfaces()
         {
             client.SendMessageInternal(fullMessage);
-            server.ServerGetMessageFromClient(fullMessage);
+            //server.ServerGetMessageFromClient(fullMessage);
         }
         #endregion
         #region ReceiveMessageFromServer
         public string serverMessage;
+        public void ReceiveMEssagesFromInterfaces()
+        {
+            //serverMessage =  server.ServerSendMessageToClient();
+            PrintMessageInChatRoom();
+        }
         public void PrintMessageInChatRoom()
         {
             this.serverMessage = client.ReceiveMessageIntern();
@@ -58,7 +64,7 @@ namespace WpfApp1.Model
         #region LogOut
         public void LogOutFromServer()
         {
-            server.ClientLogOutOfServer(false);
+            //server.ClientLogOutOfServer(false);
             this.userName = null;
         }
         #endregion LogOutCo

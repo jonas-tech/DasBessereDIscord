@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DasBessereDIscord.Client.ViewModel;
-using WpfApp1.Proxy;
 using WpfApp1.Model;
+using DasBessereDIscord.Server;
 
 namespace DasBessereDIscord.Client.Model
 {

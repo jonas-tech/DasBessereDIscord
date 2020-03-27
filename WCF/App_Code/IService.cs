@@ -15,7 +15,7 @@ public interface IService
 	void ReturnMessage(string clientMessage);
 
 	[OperationContract]
-	CompositeType GetDataUsingDataContract(CompositeType composite);
+	CompositeType GetDataUsingDxataContract(CompositeType composite);
 
 	// TODO: Add your service operations here
 }
