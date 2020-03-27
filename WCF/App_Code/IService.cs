@@ -11,14 +11,8 @@ using System.Text;
 public interface IService
 {
 
-	[OperationContract(IsOneWay =true)]
+	[OperationContract]
 	void ReturnMessage(string clientMessage);
-
-	[OperationContract(IsOneWay = true)]
-	string ReturnMesageToClient();
-	
-
-	
 
 	[OperationContract]
 	CompositeType GetDataUsingDataContract(CompositeType composite);

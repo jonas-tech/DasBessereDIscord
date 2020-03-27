@@ -12,7 +12,5 @@ namespace DasBessereDIscord
         string ClientSendMessageToServer();
         //Get Messages
         void ReceiveMessageFromServer(string fullMessage);
-        //Save Client Numer
-        void SaveClientNumber(int ClientNumber);
     }
 }

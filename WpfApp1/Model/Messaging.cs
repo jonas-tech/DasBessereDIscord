@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp1.Proxy;
 
 namespace WpfApp1.Model
 {
@@ -13,8 +14,7 @@ namespace WpfApp1.Model
         string userName;
         string userMessage;
         string fullMessage;
-        int Clientnumber;
-        //IService server;
+        IService server;
         public Client client;
         public ViewModelMessageing viewModelMessageing;
         public Messaging()
@@ -26,10 +26,6 @@ namespace WpfApp1.Model
         {
             this.userName = userName;
             //server.ClientLogIntoServer(true);
-        }
-        public void SaveClientNumber(int Clientnumber)
-        {
-            this.Clientnumber = Clientnumber;
         }
         #endregion
         #region SenduserMessage
@@ -48,7 +44,7 @@ namespace WpfApp1.Model
         public void SendFullMessageToInterfaces()
         {
             client.SendMessageInternal(fullMessage);
-            //server.ServerGetMessageFromClient(fullMessage);
+            server.ServerGetMessageFromClient(fullMessage);
         }
         #endregion
         #region ReceiveMessageFromServer
@@ -57,13 +53,12 @@ namespace WpfApp1.Model
         {
             this.serverMessage = client.ReceiveMessageIntern();
             viewModelMessageing.PrintServerMessageInChatroom(serverMessage);
-            //server.ServerSendMessageToClient(serverMessage);
         }
         #endregion
         #region LogOut
         public void LogOutFromServer()
         {
-            //server.ClientLogOutOfServer(false);
+            server.ClientLogOutOfServer(false);
             this.userName = null;
         }
         #endregion LogOutCo
